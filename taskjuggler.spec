@@ -3,6 +3,7 @@
 %bcond_with	pch		# enable precompiled headers
 #
 Summary:	TaskJuggler - a project management tool
+Summary(pl):	TaskJuggler - narzêdzie do zarz±dzania projektami
 Name:		taskjuggler
 Version:	2.1
 Release:	0.1
@@ -14,7 +15,7 @@ Source1:	http://www.taskjuggler.org/download/manual-%{version}.tar.bz2
 # Source1-md5:	15c2d3d9eeba04f7f4c72090424be300
 URL:		http://www.taskjuggler.org/
 %if %{with_pch}
-BuildRequires:	gcc >= 3.4
+BuildRequires:	gcc >= 5:3.4
 BuildRequires:	unsermake
 %endif
 BuildRequires:	jadetex
@@ -45,6 +46,21 @@ powerful filtering and reporting algorithms you can create task lists,
 resource usage tables, status reports, project calendars and project
 accounting statements.
 
+%description -l pl
+Taskjuggler to narzêdzie do zarz±dzania projektami dla Linuksa i
+innych uniksowych systemów operacyjnych. Jest to narzêdzie pozwalaj±ce
+np. na zaplanowanie zmian kolegów w przysz³ym miesi±cu albo budowania
+wie¿owca. Zamiast bolesnego przeklikiwania siê przez setki okienek
+dialogowych przekazuje siê projekt w prostym formacie tekstowym.
+Wystarczy wypisaæ wszystkie zadania i ich zale¿no¶ci. Informacje s±
+przesy³ane przez Taskjugglera, a u¿ytkownik dostanie wszystkie rodzaje
+raportów w formacie HTML lub XML. Taskjuggler nie tylko honoruje
+wzajemne zale¿no¶ci zadañ, ale tak¿e bierze pod uwagê ograniczenia
+zasobów. Przy u¿yciu potê¿nego filtrowania i algorytmów raportowania
+Taskjugglera mo¿na stworzyæ listy zadañ, tabele wykorzystania zasobów,
+raporty o stanie, kalendarze projektów i o¶wiadczenia rozliczaj±ce
+projekty.
+
 %prep
 %setup -q -a1
 
@@ -62,8 +78,6 @@ accounting statements.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-# create directories if necessary
-#install -d $RPM_BUILD_ROOT
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
@@ -83,8 +97,3 @@ rm -rf $RPM_BUILD_ROOT
 # initscript and its config
 #attr(754,root,root) /etc/rc.d/init.d/%{name}
 #config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/%{name}
-
-#files subpackage
-#defattr(644,root,root,755)
-#doc extras/*.gz
-#{_datadir}/%{name}-ext
