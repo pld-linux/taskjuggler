@@ -1,3 +1,7 @@
+#
+# Conditional build:
+%bcond_with	pch		# enable precompiled headers
+#
 Summary:	TaskJuggler - a project management tool
 Name:		taskjuggler
 Version:	2.1
@@ -8,17 +12,22 @@ Source0:	http://www.taskjuggler.org/download/%{name}-%{version}.tar.bz2
 # Source0-md5:	a4d77f4c8f7a453fd230d550dd4d2180
 Source1:	http://www.taskjuggler.org/download/manual-%{version}.tar.bz2
 # Source1-md5:	15c2d3d9eeba04f7f4c72090424be300
-#Patch0:		%{name}-what.patch
 URL:		http://www.taskjuggler.org/
+%if %{with_pch}
+BuildRequires:	gcc >= 3.4
+BuildRequires:	unsermake
+%endif
+BuildRequires:	jadetex
 BuildRequires:	kdelibs-devel >= 3.3
 BuildRequires:	libxslt-devel
+BuildRequires:	openjade
+BuildRequires:	perl-base
 #BuildRequires:	tetex*
 #BuildRequires:	Perl module Date::Calc... not found
 #BuildRequires:	Perl module XML::Parser... not found
 #BuildRequires:	Perl module Class::MethodMaker... not found
 #BuildRequires:	Perl module PostScript::Simple... not found
 #BuildRequires:	poster... no
-#BuildRequires:	jade*
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -38,16 +47,16 @@ accounting statements.
 
 %prep
 %setup -q -a1
-#patch0 -p1
 
 %build
-#{__gettextize}
 #{__libtoolize}
 #{__aclocal}
 #{__autoconf}
 #{__autoheader}
 #{__automake}
 %configure \
+	%{?with_pch:--enable-pch} \
+	--disable-final \
 	--with-kde-support=yes
 %{__make}
 
