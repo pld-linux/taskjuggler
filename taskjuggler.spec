@@ -14,7 +14,7 @@ Source0:	http://www.taskjuggler.org/download/%{name}-%{version}.tar.bz2
 Source1:	http://www.taskjuggler.org/download/manual-%{version}.tar.bz2
 # Source1-md5:	15c2d3d9eeba04f7f4c72090424be300
 URL:		http://www.taskjuggler.org/
-%if %{with_pch}
+%if %{with pch}
 BuildRequires:	gcc >= 5:3.4
 BuildRequires:	unsermake
 %endif
