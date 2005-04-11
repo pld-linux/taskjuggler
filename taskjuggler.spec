@@ -13,22 +13,24 @@ Source0:	http://www.taskjuggler.org/download/%{name}-%{version}.tar.bz2
 # Source0-md5:	a4d77f4c8f7a453fd230d550dd4d2180
 Source1:	http://www.taskjuggler.org/download/manual-%{version}.tar.bz2
 # Source1-md5:	15c2d3d9eeba04f7f4c72090424be300
+Patch0:     %{name}-docbook.patch
 URL:		http://www.taskjuggler.org/
 %if %{with pch}
 BuildRequires:	gcc >= 5:3.4
 BuildRequires:	unsermake
 %endif
-BuildRequires:	jadetex
+#BuildRequires:	jadetex
 BuildRequires:	kdelibs-devel >= 3.3
-BuildRequires:	libxslt-devel
-BuildRequires:	openjade
+#BuildRequires:	libxslt-devel
+#BuildRequires:	openjade
 BuildRequires:	perl-base
+BuildRequires:  docbook-utils
 #BuildRequires:	tetex*
-#BuildRequires:	Perl module Date::Calc... not found
-#BuildRequires:	Perl module XML::Parser... not found
-#BuildRequires:	Perl module Class::MethodMaker... not found
-#BuildRequires:	Perl module PostScript::Simple... not found
-#BuildRequires:	poster... no
+BuildRequires:	perl-Date-Calc
+BuildRequires:	perl-XML-Parser
+BuildRequires:	perl-Class-MethodMaker
+BuildRequires:	perl-PostScript-Simple
+BuildRequires:	poster
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -63,6 +65,7 @@ projekty.
 
 %prep
 %setup -q -a1
+%patch0 -p0
 
 %build
 #{__libtoolize}
@@ -88,12 +91,6 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 #doc AUTHORS CREDITS ChangeLog NEWS README THANKS TODO
-# if _sysconfdir != /etc:
-#%%dir %{_sysconfdir}
-#config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/*
-#attr(755,root,root) %{_bindir}/*
-#{_datadir}/%{name}
-
-# initscript and its config
-#attr(754,root,root) /etc/rc.d/init.d/%{name}
-#config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/%{name}
+attr(755,root,root) %{_bindir}/*
+{_libdir}/*
+{_datadir}/%{name}
