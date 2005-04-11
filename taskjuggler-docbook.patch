@@ -1,0 +1,24 @@
+--- docs/en/Makefile.am~	2005-02-28 17:09:26.000000000 +0100
++++ docs/en/Makefile.am	2005-03-26 15:42:24.000000000 +0100
+@@ -49,18 +49,18 @@
+ taskjuggler/book1.html: $(SGMLSOURCES)
+ 	@if test "${HTMLMANUAL}" != "no" ; then \
+ 	  mkdir -p taskjuggler ; \
+-	  db2html --xencoding utf-8 taskjuggler.xml ;\
++	  db2html taskjuggler.xml ;\
+ 	  cp index.html taskjuggler/index.html ; \
+ 	fi
+ 
+ taskjuggler.ps: $(SGMLSOURCES)
+ 	@if test "${PSMANUAL}" != "no" ; then \
+-	  db2ps --xencoding utf-8 taskjuggler.xml ;\
++	  db2ps taskjuggler.xml ;\
+ 	fi
+ 
+ taskjuggler.pdf: $(SGMLSOURCES)
+ 	@if test "${PSMANUAL}" != "no" ; then \
+-	  db2ps --pdf --xencoding utf-8 taskjuggler.xml ;\
++	  db2pdf taskjuggler.xml ;\
+ 	fi
+ 
+ tarball: 
