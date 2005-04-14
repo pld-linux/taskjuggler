@@ -13,7 +13,7 @@ Source0:	http://www.taskjuggler.org/download/%{name}-%{version}.tar.bz2
 # Source0-md5:	a4d77f4c8f7a453fd230d550dd4d2180
 Source1:	http://www.taskjuggler.org/download/manual-%{version}.tar.bz2
 # Source1-md5:	15c2d3d9eeba04f7f4c72090424be300
-Patch0:     %{name}-docbook.patch
+Patch0:		%{name}-docbook.patch
 URL:		http://www.taskjuggler.org/
 %if %{with pch}
 BuildRequires:	gcc >= 5:3.4
@@ -24,7 +24,7 @@ BuildRequires:	kdelibs-devel >= 3.3
 #BuildRequires:	libxslt-devel
 #BuildRequires:	openjade
 BuildRequires:	perl-base
-BuildRequires:  docbook-utils
+BuildRequires:	docbook-utils
 #BuildRequires:	tetex*
 BuildRequires:	perl-Date-Calc
 BuildRequires:	perl-XML-Parser
