@@ -1,6 +1,32 @@
---- docs/en/Makefile.am~	2005-02-28 17:09:26.000000000 +0100
-+++ docs/en/Makefile.am	2005-03-26 15:42:24.000000000 +0100
+diff -uNr taskjuggler-2.1.orig/docs/en/Makefile.am taskjuggler-2.1/docs/en/Makefile.am
+--- taskjuggler-2.1.orig/docs/en/Makefile.am	2005-02-28 17:09:26.000000000 +0100
++++ taskjuggler-2.1/docs/en/Makefile.am	2005-05-07 19:25:08.000000000 +0200
 @@ -49,18 +49,18 @@
+ taskjuggler/book1.html: $(SGMLSOURCES)
+ 	@if test "${HTMLMANUAL}" != "no" ; then \
+ 	  mkdir -p taskjuggler ; \
+-	  db2html --xencoding utf-8 taskjuggler.xml ;\
++	  db2html taskjuggler.xml ;\
+ 	  cp index.html taskjuggler/index.html ; \
+ 	fi
+ 
+ taskjuggler.ps: $(SGMLSOURCES)
+ 	@if test "${PSMANUAL}" != "no" ; then \
+-	  db2ps --xencoding utf-8 taskjuggler.xml ;\
++	  db2ps taskjuggler.xml ;\
+ 	fi
+ 
+ taskjuggler.pdf: $(SGMLSOURCES)
+ 	@if test "${PSMANUAL}" != "no" ; then \
+-	  db2ps --pdf --xencoding utf-8 taskjuggler.xml ;\
++	  db2pdf taskjuggler.xml ;\
+ 	fi
+ 
+ tarball: 
+diff -uNr taskjuggler-2.1.orig/docs/en/Makefile.in taskjuggler-2.1/docs/en/Makefile.in
+--- taskjuggler-2.1.orig/docs/en/Makefile.in	2005-03-07 11:23:27.000000000 +0100
++++ taskjuggler-2.1/docs/en/Makefile.in	2005-05-07 19:25:43.000000000 +0200
+@@ -532,18 +532,18 @@
  taskjuggler/book1.html: $(SGMLSOURCES)
  	@if test "${HTMLMANUAL}" != "no" ; then \
  	  mkdir -p taskjuggler ; \
