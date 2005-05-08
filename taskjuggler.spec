@@ -1,4 +1,11 @@
 #
+# TODO:
+#       - fix GCC4 build
+#       - review requires, there might be some unnecessary entries
+#       - split package into two: taskjuggler and taskjuggler-kde
+#         like in reference spec-file
+#       - take care of help (it doesn't work right now)
+#
 # Conditional build:
 %bcond_with	pch		# enable precompiled headers
 #
@@ -6,7 +13,7 @@ Summary:	TaskJuggler - a project management tool
 Summary(pl):	TaskJuggler - narzêdzie do zarz±dzania projektami
 Name:		taskjuggler
 Version:	2.1
-Release:	0.1
+Release:	0.2
 License:	GPL v2
 Group:		Applications
 Source0:	http://www.taskjuggler.org/download/%{name}-%{version}.tar.bz2
@@ -19,13 +26,13 @@ URL:		http://www.taskjuggler.org/
 BuildRequires:	gcc >= 5:3.4
 BuildRequires:	unsermake
 %endif
-#BuildRequires:	jadetex
+BuildRequires:	jadetex
 BuildRequires:	kdelibs-devel >= 3.3
-#BuildRequires:	libxslt-devel
-#BuildRequires:	openjade
+BuildRequires:	libxslt-devel
+BuildRequires:  libxslt-progs
+BuildRequires:	openjade
 BuildRequires:	perl-base
 BuildRequires:	docbook-utils
-#BuildRequires:	tetex*
 BuildRequires:	perl-Date-Calc
 BuildRequires:	perl-XML-Parser
 BuildRequires:	perl-Class-MethodMaker
@@ -65,7 +72,7 @@ projekty.
 
 %prep
 %setup -q -a1
-%patch0 -p0
+%patch0 -p1
 
 %build
 #{__libtoolize}
@@ -85,12 +92,21 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
+mv $RPM_BUILD_ROOT/%{_docdir}/packages/* \
+  $RPM_BUILD_ROOT/%{_docdir}
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-#doc AUTHORS CREDITS ChangeLog NEWS README THANKS TODO
-attr(755,root,root) %{_bindir}/*
-{_libdir}/*
-{_datadir}/%{name}
+%doc AUTHORS ChangeLog README TODO
+%attr(755,root,root) %{_bindir}/*
+%{_datadir}/apps/%{name}/*
+%{_datadir}/apps/ktjview2/*
+%{_datadir}/config.kcfg/*
+%doc %{_docdir}/*
+%{_desktopdir}/kde/*
+%{_libdir}/*
+%{_iconsdir}/*/*/*/*
+%{_datadir}/mimelnk/application/*
