@@ -26,17 +26,17 @@ URL:		http://www.taskjuggler.org/
 BuildRequires:	gcc >= 5:3.4
 BuildRequires:	unsermake
 %endif
+BuildRequires:	docbook-utils
 BuildRequires:	jadetex
 BuildRequires:	kdelibs-devel >= 3.3
 BuildRequires:	libxslt-devel
-BuildRequires:  libxslt-progs
+BuildRequires:	libxslt-progs
 BuildRequires:	openjade
-BuildRequires:	perl-base
-BuildRequires:	docbook-utils
 BuildRequires:	perl-Date-Calc
-BuildRequires:	perl-XML-Parser
 BuildRequires:	perl-Class-MethodMaker
 BuildRequires:	perl-PostScript-Simple
+BuildRequires:	perl-XML-Parser
+BuildRequires:	perl-base
 BuildRequires:	poster
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -92,8 +92,8 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-mv $RPM_BUILD_ROOT/%{_docdir}/packages/* \
-  $RPM_BUILD_ROOT/%{_docdir}
+mv $RPM_BUILD_ROOT%{_docdir}/packages/* \
+	$RPM_BUILD_ROOT%{_docdir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -102,11 +102,13 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog README TODO
 %attr(755,root,root) %{_bindir}/*
-%{_datadir}/apps/%{name}/*
-%{_datadir}/apps/ktjview2/*
+%{_datadir}/apps/%{name}
+%{_datadir}/apps/ktjview2
 %{_datadir}/config.kcfg/*
-%doc %{_docdir}/*
+# XXX: fix it 
+#%doc %{_docdir}/*
 %{_desktopdir}/kde/*
+# XXX: probably matches too much
 %{_libdir}/*
 %{_iconsdir}/*/*/*/*
 %{_datadir}/mimelnk/application/*
