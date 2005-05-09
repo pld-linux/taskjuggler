@@ -1,6 +1,6 @@
 #
 # TODO:
-#       - fix GCC4 build
+#       - fix GCC4 build (blocked by PR c++/21455)
 #       - review requires, there might be some unnecessary entries
 #       - split package into two: taskjuggler and taskjuggler-kde
 #         like in reference spec-file
