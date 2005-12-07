@@ -21,6 +21,7 @@ Source0:	http://www.taskjuggler.org/download/%{name}-%{version}.tar.bz2
 Source1:	http://www.taskjuggler.org/download/manual-%{version}.tar.bz2
 # Source1-md5:	15c2d3d9eeba04f7f4c72090424be300
 Patch0:		%{name}-docbook.patch
+Patch1:		%{name}-tests.patch
 URL:		http://www.taskjuggler.org/
 %if %{with pch}
 BuildRequires:	gcc >= 5:3.4
@@ -73,6 +74,7 @@ projekty.
 %prep
 %setup -q -a1
 %patch0 -p1
+%patch1 -p1
 
 %build
 #{__libtoolize}
@@ -90,23 +92,31 @@ projekty.
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT
+	DESTDIR=$RPM_BUILD_ROOT \
+	kde_htmldir=%{_kdedocdir} \
+	docprefix=%{_docdir}/%{name}-%{version}/html \
+	kdeprefix=%{_kdedocdir}/en/taskjuggler \
+	docdir=%{_docdir}/%{name}-%{version}/tjx2gantt
 
-mv $RPM_BUILD_ROOT%{_docdir}/packages/* \
-	$RPM_BUILD_ROOT%{_docdir}
+%find_lang %{name} --with-kde
+%find_lang ktjview2 --with-kde
+# rather make subpackage for ktjview2?
+cat ktjview2.lang >> %{name}.lang
+
+# %doc or %{_docdir}, but not both
+install AUTHORS ChangeLog README TODO $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%files
+%files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog README TODO
+#%doc AUTHORS ChangeLog README TODO
+%{_docdir}/%{name}-%{version}
 %attr(755,root,root) %{_bindir}/*
 %{_datadir}/apps/%{name}
 %{_datadir}/apps/ktjview2
 %{_datadir}/config.kcfg/*
-# XXX: fix it 
-#%doc %{_docdir}/*
 %{_desktopdir}/kde/*
 # XXX: probably matches too much
 %{_libdir}/*
