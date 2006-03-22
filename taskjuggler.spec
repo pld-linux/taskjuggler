@@ -1,35 +1,26 @@
 #
 # TODO:
-#       - fix GCC4 build (blocked by PR c++/21455)
-#       - review requires, there might be some unnecessary entries
 #       - split package into two: taskjuggler and taskjuggler-kde
 #         like in reference spec-file
-#       - take care of help (it doesn't work right now)
-#
-# Conditional build:
-%bcond_with	pch		# enable precompiled headers
 #
 Summary:	TaskJuggler - a project management tool
 Summary(pl):	TaskJuggler - narzêdzie do zarz±dzania projektami
 Name:		taskjuggler
-Version:	2.1
-Release:	0.2
+Version:	2.2.0
+Release:	0.1
 License:	GPL v2
 Group:		Applications
 Source0:	http://www.taskjuggler.org/download/%{name}-%{version}.tar.bz2
-# Source0-md5:	a4d77f4c8f7a453fd230d550dd4d2180
+# Source0-md5:	0f7a0301a6e1ec82378bbf4e2539af66
 Source1:	http://www.taskjuggler.org/download/manual-%{version}.tar.bz2
-# Source1-md5:	15c2d3d9eeba04f7f4c72090424be300
+# Source1-md5:	ea21fde74bced90946e9975fc7f68e57
 Patch0:		%{name}-docbook.patch
-Patch1:		%{name}-tests.patch
 URL:		http://www.taskjuggler.org/
-%if %{with pch}
-BuildRequires:	gcc >= 5:3.4
-BuildRequires:	unsermake
-%endif
+BuildRequires:	docbook-dtd42-xml
+BuildRequires:	docbook-dtd43-xml
 BuildRequires:	docbook-utils
 BuildRequires:	jadetex
-BuildRequires:	kdelibs-devel >= 3.3
+BuildRequires:	kdepim-devel >= 3.3
 BuildRequires:	libxslt-devel
 BuildRequires:	libxslt-progs
 BuildRequires:	openjade
@@ -40,6 +31,8 @@ BuildRequires:	perl-XML-Parser
 BuildRequires:	perl-base
 BuildRequires:	poster
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+%define		specflags	-fno-strict-aliasing
 
 %description
 Taskjuggler is a project management tool for Linux and UNIX
@@ -74,18 +67,15 @@ projekty.
 %prep
 %setup -q -a1
 %patch0 -p1
-%patch1 -p1
+:> docs/en/kde-doc.patch
 
 %build
-#{__libtoolize}
-#{__aclocal}
-#{__autoconf}
-#{__autoheader}
-#{__automake}
 %configure \
-	%{?with_pch:--enable-pch} \
-	--disable-final \
-	--with-kde-support=yes
+	--with-kde-support=yes \
+	--with-qt-libraries=%{_libdir} \
+	--disable-rpath \
+	--disable-final
+
 %{__make}
 
 %install
@@ -95,30 +85,24 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT \
 	kde_htmldir=%{_kdedocdir} \
 	docprefix=%{_docdir}/%{name}-%{version}/html \
-	kdeprefix=%{_kdedocdir}/en/taskjuggler \
-	docdir=%{_docdir}/%{name}-%{version}/tjx2gantt
+	kdeprefix=%{_kdedocdir}/en/taskjuggler
 
 %find_lang %{name} --with-kde
-%find_lang ktjview2 --with-kde
-# rather make subpackage for ktjview2?
-cat ktjview2.lang >> %{name}.lang
-
-# %doc or %{_docdir}, but not both
-install AUTHORS ChangeLog README TODO $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%post	-p /sbin/ldconfig
+%postun	-p /sbin/ldconfig
+
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-#%doc AUTHORS ChangeLog README TODO
-%{_docdir}/%{name}-%{version}
+%doc AUTHORS ChangeLog README TODO
 %attr(755,root,root) %{_bindir}/*
-%{_datadir}/apps/%{name}
-%{_datadir}/apps/ktjview2
-%{_datadir}/config.kcfg/*
+%attr(755,root,root) %{_libdir}/lib*so.*.*.*
 %{_desktopdir}/kde/*
-# XXX: probably matches too much
-%{_libdir}/*
 %{_iconsdir}/*/*/*/*
+%{_datadir}/apps/katepart/syntax/taskjuggler.xml
+%{_datadir}/apps/%{name}
+%{_datadir}/config/*
 %{_datadir}/mimelnk/application/*
