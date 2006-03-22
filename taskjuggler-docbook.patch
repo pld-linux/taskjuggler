@@ -1,50 +1,20 @@
-diff -uNr taskjuggler-2.1.orig/docs/en/Makefile.am taskjuggler-2.1/docs/en/Makefile.am
---- taskjuggler-2.1.orig/docs/en/Makefile.am	2005-02-28 17:09:26.000000000 +0100
-+++ taskjuggler-2.1/docs/en/Makefile.am	2005-05-07 19:25:08.000000000 +0200
-@@ -49,18 +49,18 @@
- taskjuggler/book1.html: $(SGMLSOURCES)
- 	@if test "${HTMLMANUAL}" != "no" ; then \
- 	  mkdir -p taskjuggler ; \
--	  db2html --xencoding utf-8 taskjuggler.xml ;\
-+	  db2html taskjuggler.xml ;\
- 	  cp index.html taskjuggler/index.html ; \
- 	fi
+--- taskjuggler-2.2.0/docs/en/PropertyReference.xml.orig	2005-12-04 16:07:46.000000000 +0100
++++ taskjuggler-2.2.0/docs/en/PropertyReference.xml	2006-03-22 13:06:14.505729750 +0100
+@@ -2,7 +2,7 @@
+ <?xml-stylesheet type="text/xsl" href="PropertyReference.xsl"?>
+ <!DOCTYPE properties [
+ <!--  <!ENTITY % DocBookDTD PUBLIC "-//OASIS//DTD DocBook V4.2//EN"
+-"/usr/share/sgml/docbook/dtd/4.2xml/docbookx.dtd">
++"/usr/share/sgml/docbook/dtd-4.2-xml/docbookx.dtd">
+  %DocBookDTD; -->
+  <!ELEMENT properties (property*)>
  
- taskjuggler.ps: $(SGMLSOURCES)
- 	@if test "${PSMANUAL}" != "no" ; then \
--	  db2ps --xencoding utf-8 taskjuggler.xml ;\
-+	  db2ps taskjuggler.xml ;\
- 	fi
- 
- taskjuggler.pdf: $(SGMLSOURCES)
- 	@if test "${PSMANUAL}" != "no" ; then \
--	  db2ps --pdf --xencoding utf-8 taskjuggler.xml ;\
-+	  db2pdf taskjuggler.xml ;\
- 	fi
- 
- tarball: 
-diff -uNr taskjuggler-2.1.orig/docs/en/Makefile.in taskjuggler-2.1/docs/en/Makefile.in
---- taskjuggler-2.1.orig/docs/en/Makefile.in	2005-03-07 11:23:27.000000000 +0100
-+++ taskjuggler-2.1/docs/en/Makefile.in	2005-05-07 19:25:43.000000000 +0200
-@@ -532,18 +532,18 @@
- taskjuggler/book1.html: $(SGMLSOURCES)
- 	@if test "${HTMLMANUAL}" != "no" ; then \
- 	  mkdir -p taskjuggler ; \
--	  db2html --xencoding utf-8 taskjuggler.xml ;\
-+	  db2html taskjuggler.xml ;\
- 	  cp index.html taskjuggler/index.html ; \
- 	fi
- 
- taskjuggler.ps: $(SGMLSOURCES)
- 	@if test "${PSMANUAL}" != "no" ; then \
--	  db2ps --xencoding utf-8 taskjuggler.xml ;\
-+	  db2ps taskjuggler.xml ;\
- 	fi
- 
- taskjuggler.pdf: $(SGMLSOURCES)
- 	@if test "${PSMANUAL}" != "no" ; then \
--	  db2ps --pdf --xencoding utf-8 taskjuggler.xml ;\
-+	  db2pdf taskjuggler.xml ;\
- 	fi
- 
- tarball: 
+--- taskjuggler-2.2.0/docs/en/taskjuggler.xml.in.orig	2005-12-04 16:07:46.000000000 +0100
++++ taskjuggler-2.2.0/docs/en/taskjuggler.xml.in	2006-03-22 13:01:15.236717250 +0100
+@@ -1,5 +1,5 @@
+ <?xml version="1.0" ?>
+-<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook V4.3//EN" "/usr/share/xml/docbook/schema/dtd/4.3/docbookx.dtd" [
++<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook V4.3//EN" "/usr/share/sgml/docbook/xml-dtd-4.3/docbookx.dtd" [
+  <!ENTITY ChangeLog SYSTEM "ChangeLog.xml">
+  <!ENTITY FirstProject SYSTEM "FirstProject.xml">
+  <!ENTITY UsageGuide SYSTEM "UsageGuide.xml">
