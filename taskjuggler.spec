@@ -4,7 +4,7 @@
 #         like in reference spec-file
 #
 Summary:	TaskJuggler - a project management tool
-Summary(pl):	TaskJuggler - narzêdzie do zarz±dzania projektami
+Summary(pl.UTF-8):   TaskJuggler - narzÄ™dzie do zarzÄ…dzania projektami
 Name:		taskjuggler
 Version:	2.2.0
 Release:	0.1
@@ -49,19 +49,19 @@ powerful filtering and reporting algorithms you can create task lists,
 resource usage tables, status reports, project calendars and project
 accounting statements.
 
-%description -l pl
-Taskjuggler to narzêdzie do zarz±dzania projektami dla Linuksa i
-innych uniksowych systemów operacyjnych. Jest to narzêdzie pozwalaj±ce
-np. na zaplanowanie zmian kolegów w przysz³ym miesi±cu albo budowania
-wie¿owca. Zamiast bolesnego przeklikiwania siê przez setki okienek
-dialogowych przekazuje siê projekt w prostym formacie tekstowym.
-Wystarczy wypisaæ wszystkie zadania i ich zale¿no¶ci. Informacje s±
-przesy³ane przez Taskjugglera, a u¿ytkownik dostanie wszystkie rodzaje
-raportów w formacie HTML lub XML. Taskjuggler nie tylko honoruje
-wzajemne zale¿no¶ci zadañ, ale tak¿e bierze pod uwagê ograniczenia
-zasobów. Przy u¿yciu potê¿nego filtrowania i algorytmów raportowania
-Taskjugglera mo¿na stworzyæ listy zadañ, tabele wykorzystania zasobów,
-raporty o stanie, kalendarze projektów i o¶wiadczenia rozliczaj±ce
+%description -l pl.UTF-8
+Taskjuggler to narzÄ™dzie do zarzÄ…dzania projektami dla Linuksa i
+innych uniksowych systemÃ³w operacyjnych. Jest to narzÄ™dzie pozwalajÄ…ce
+np. na zaplanowanie zmian kolegÃ³w w przyszÅ‚ym miesiÄ…cu albo budowania
+wieÅ¼owca. Zamiast bolesnego przeklikiwania siÄ™ przez setki okienek
+dialogowych przekazuje siÄ™ projekt w prostym formacie tekstowym.
+Wystarczy wypisaÄ‡ wszystkie zadania i ich zaleÅ¼noÅ›ci. Informacje sÄ…
+przesyÅ‚ane przez Taskjugglera, a uÅ¼ytkownik dostanie wszystkie rodzaje
+raportÃ³w w formacie HTML lub XML. Taskjuggler nie tylko honoruje
+wzajemne zaleÅ¼noÅ›ci zadaÅ„, ale takÅ¼e bierze pod uwagÄ™ ograniczenia
+zasobÃ³w. Przy uÅ¼yciu potÄ™Å¼nego filtrowania i algorytmÃ³w raportowania
+Taskjugglera moÅ¼na stworzyÄ‡ listy zadaÅ„, tabele wykorzystania zasobÃ³w,
+raporty o stanie, kalendarze projektÃ³w i oÅ›wiadczenia rozliczajÄ…ce
 projekty.
 
 %prep
