@@ -4,7 +4,7 @@
 #         like in reference spec-file
 #
 Summary:	TaskJuggler - a project management tool
-Summary(pl.UTF-8):   TaskJuggler - narzędzie do zarządzania projektami
+Summary(pl.UTF-8):	TaskJuggler - narzędzie do zarządzania projektami
 Name:		taskjuggler
 Version:	2.2.0
 Release:	0.1
