@@ -6,15 +6,15 @@
 Summary:	TaskJuggler - a project management tool
 Summary(pl.UTF-8):	TaskJuggler - narzędzie do zarządzania projektami
 Name:		taskjuggler
-Version:	2.2.0
-Release:	0.1
+Version:	2.4.0
+Release:	1
 License:	GPL v2
 Group:		Applications
 Source0:	http://www.taskjuggler.org/download/%{name}-%{version}.tar.bz2
-# Source0-md5:	0f7a0301a6e1ec82378bbf4e2539af66
+# Source0-md5:	d9076b5a1d2601f93ea4bc07780b7297
 Source1:	http://www.taskjuggler.org/download/manual-%{version}.tar.bz2
-# Source1-md5:	ea21fde74bced90946e9975fc7f68e57
-Patch0:		%{name}-docbook.patch
+# Source1-md5:	b1c1a04581dec6b6f4bdc274836041a5
+Patch0:		kde-ac260-lt.patch
 URL:		http://www.taskjuggler.org/
 BuildRequires:	docbook-dtd42-xml
 BuildRequires:	docbook-dtd43-xml
@@ -67,9 +67,12 @@ projekty.
 %prep
 %setup -q -a1
 %patch0 -p1
-:> docs/en/kde-doc.patch
 
 %build
+export kde_htmldir=%{_kdedocdir}
+export kde_libs_htmldir=%{_kdedocdir}
+%{__make} -f admin/Makefile.common cvs
+
 %configure \
 	--with-kde-support=yes \
 	--with-qt-libraries=%{_libdir} \
