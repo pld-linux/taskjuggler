@@ -24,13 +24,16 @@ BuildRequires:	kdepim-devel >= 3.3
 BuildRequires:	libxslt-devel
 BuildRequires:	libxslt-progs
 BuildRequires:	openjade
-BuildRequires:	perl-Date-Calc
 BuildRequires:	perl-Class-MethodMaker
+BuildRequires:	perl-Date-Calc
 BuildRequires:	perl-PostScript-Simple
 BuildRequires:	perl-XML-Parser
 BuildRequires:	perl-base
 BuildRequires:	poster
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+# kde3 apps need patching
+%undefine	with_ccache
 
 %define		specflags	-fno-strict-aliasing
 
@@ -91,6 +94,10 @@ rm -rf $RPM_BUILD_ROOT
 	kdeprefix=%{_kdedocdir}/en/taskjuggler
 
 %find_lang %{name} --with-kde
+
+rm -f $RPM_BUILD_ROOT%{_libdir}/libtaskjuggler.la
+rm -f $RPM_BUILD_ROOT%{_libdir}/libtaskjuggler.so
+rm -f $RPM_BUILD_ROOT%{_libdir}/libtaskjuggler.so.3
 
 %clean
 rm -rf $RPM_BUILD_ROOT
