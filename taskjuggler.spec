@@ -82,7 +82,8 @@ export kde_libs_htmldir=%{_kdedocdir}
 	--disable-rpath \
 	--disable-final
 
-%{__make}
+# parallel make is broken in doc/en (looks like temporary file conflict)
+%{__make} -j1
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -97,7 +98,6 @@ rm -rf $RPM_BUILD_ROOT
 
 rm -f $RPM_BUILD_ROOT%{_libdir}/libtaskjuggler.la
 rm -f $RPM_BUILD_ROOT%{_libdir}/libtaskjuggler.so
-rm -f $RPM_BUILD_ROOT%{_libdir}/libtaskjuggler.so.3
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -109,7 +109,8 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog README TODO
 %attr(755,root,root) %{_bindir}/*
-%attr(755,root,root) %{_libdir}/lib*so.*.*.*
+%attr(755,root,root) %{_libdir}/libtaskjuggler.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libtaskjuggler.so.3
 %{_desktopdir}/kde/*
 %{_iconsdir}/*/*/*/*
 %{_datadir}/apps/katepart/syntax/taskjuggler.xml
